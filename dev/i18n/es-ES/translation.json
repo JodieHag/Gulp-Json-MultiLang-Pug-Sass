@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "titulo": "Estás viendo: Gulp tasks con sass y json lang's"
+    
+  },
+
+  "general": {
+    "es": "Castellano",
+		"ca": "Catalán",
+		"en": "Inglés",
+		"gracias" : "Gracias",
+		"confirmacion" : "Confirmación",
+		"home": "Inicio"
+  },
+  "cookies": {
+    "text": "This website uses cookies. By continuing to explore this site, we understand that you accept their use. Further information:",
+    "link_text": "Cookie Policy",
+    "url": ""
+  }
+}

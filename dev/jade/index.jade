@@ -1,0 +1,96 @@
+doctype html
+html
+	head
+		meta(property='og:image', content='')
+		meta(property='og:title', content='')
+		//meta(property='og:url', content='#.html')
+		meta(property='og:description', content='')
+		meta(name='twitter:card', content='')
+		meta(name='twitter:site', content='')
+		meta(name='twitter:title', content='')
+		meta(name='twitter:description', content='')
+		meta(name='twitter:creator', content='')
+		meta(name='twitter:image', content='')
+		title #{i18n.meta.titulo}
+		meta(charset='utf-8')
+		meta(content='width=device-width, initial-scale=1.0', name='viewport')
+		meta(content='', property='og:image')
+		link(sizes='152x152', rel='apple-touch-icon-precomposed', href='')
+		link(sizes='144x144', rel='apple-touch-icon-precomposed', href='')
+		link(sizes='120x120', rel='apple-touch-icon-precomposed', href='')
+		link(sizes='114x114', rel='apple-touch-icon-precomposed', href='')
+		link(sizes='72x72', rel='apple-touch-icon-precomposed', href='')
+		link(rel='apple-touch-icon-precomposed', href='')
+		link(sizes='32x32', rel='shortcut icon', href='')
+		link(type='text/css', rel='stylesheet', href='css/styles.min.css')
+
+
+	body(class!='#{lang}' data-language!='#{lang}')
+
+		//.cookies-data(data-text='#{i18n.cookies.text}' data-link-text='#{i18n.cookies.link_text}' data-url='#{i18n.cookies.url}')
+		.lang-menu
+			ul
+				li
+					button
+						a(href="index_es.html")
+							|	#{i18n.general.es}
+				li
+					button
+						a(href="index_ca.html")
+							|	#{i18n.general.ca}
+				li
+					button
+						a(href="index_en.html")
+							|	#{i18n.general.en}
+		h2
+			| #{i18n.meta.titulo}
+		.options-menu
+			ul
+				li
+					button
+						a(href="gracias_#{lang}.html")
+							|	#{i18n.general.gracias}
+				li
+					button
+						a(href="confirmacion_#{lang}.html")
+							|	#{i18n.general.confirmacion}
+				li
+					button
+						a(href="index_#{lang}.html")
+							|	#{i18n.general.home}
+
+
+		script(src='js/app.js?')
+		script(src='https://platform.twitter.com/widgets.js')
+
+		|<script>
+		|var clientDevice;
+		|var md = new MobileDetect(window.navigator.userAgent);
+		|if (md.phone()) {
+		|	clientDevice = 'Mobile';
+		|} else if (md.tablet()) {
+		|	clientDevice = 'Tablet';
+		|} else {
+		|	clientDevice = 'Desktop';
+		|}
+		|dataLayer = [{
+		|	'idioma': '',
+		|	'categoriaSite': '',
+		|	'seccio': 'Fans',
+		|	'canal': clientDevice,
+		|	'subseccio': ''
+		|}];
+		|dataLayer.push({
+		|	'event': 'paginaVirtual',
+		| 	'eventValue': ''
+		|});
+		|</script>
+		|<!-- Google Tag Manager -->
+		|<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TR7BQW"
+		|height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		|<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		|new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		|j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		|'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		|})(window,document,'script','dataLayer','GTM-TR7BQW');</script>
+		|<!-- End Google Tag Manager -->

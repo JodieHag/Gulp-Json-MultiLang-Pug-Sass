@@ -1,2 +1,14 @@
-# Gulp-Json-Multilenguaje-Jade-Sass
-Gulp Tasks with Jade, Sass, js, compressed zip, multi language
+// Inicializing
+
+$npm install
+
+$gulp
+	(for dev mode)
+	
+$gulp zip
+	(generate zip compile)
+
+//Json Multi Lang
+//Sass
+//Jade
+//Compress

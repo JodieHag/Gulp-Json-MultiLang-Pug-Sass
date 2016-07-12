@@ -1,0 +1,20 @@
+/* ======================================================================
+	Footer
+======================================================================== */
+
+footer {
+  color: $colot-text;
+  background-color: $bg-footer;
+  text-align: center;
+  position: relative;
+  padding: 10px 15px;
+  &.fixing {
+    position: fixed;
+    bottom: 0;
+	  width: 100%;
+		.copy {
+			@include rem(font-size, $font-size-copy-footer);
+			margin: 0 0 20px;
+		}
+	}
+}

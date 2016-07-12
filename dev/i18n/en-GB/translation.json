@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "titulo": "You see: gulp tasks with sass and json lang's"
+  },
+
+  "general": {
+    "es": "Spanish",
+		"ca": "Catalan",
+		"en": "English",
+		"gracias" : "Thanks",
+		"confirmacion" : "Confirm",
+		"home": "Home"
+  },
+
+  "cookies": {
+    "text": "This website uses cookies. By continuing to explore this site, we understand that you accept their use. Further information:",
+    "link_text": "Cookie Policy",
+    "url": ""
+  }
+}

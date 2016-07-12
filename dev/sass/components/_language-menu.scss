@@ -1,0 +1,15 @@
+/* ======================================================================
+	  Language menu
+	======================================================================== */
+
+.lang-menu, .options-menu {
+	ul {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+	}
+	li {
+		display: inline-block;
+		margin: 10px;
+	}
+}
