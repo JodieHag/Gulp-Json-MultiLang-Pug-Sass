@@ -12,8 +12,3 @@ $gulp zip
 //Sass
 //Jade
 //Compress
-
-
-@Judit Sánchez
-@She's Yu
-@www.shesyu.es
