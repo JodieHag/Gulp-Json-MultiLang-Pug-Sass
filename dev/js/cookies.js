@@ -9,7 +9,7 @@ function initLayersCookies(){
 
 
 function openAlertCookies(){
-  if(getCookie("fcb_clasico_cookies")!="true" && $(".subtitle-homepage:first").length > 0){
+  if(getCookie("_cookies")!="true" && $(".subtitle-homepage:first").length > 0){
     $("#cookies-alert").show();
     $("#cookies-alert").delay(500).animate({ 'opacity': '1', 'top': '0px'}, 250);
     $(".logo-out").delay(200).animate({ 'top': '64px'}, 250);
@@ -21,7 +21,7 @@ function openAlertCookies(){
 function closeAlertCookies(){
   $("#cookies-alert").animate({ 'opacity': 0, 'margin-top':'-60px'}, 250, function() {  $(this).hide(); });
   $(".logo-out").animate({ 'top': '4px'}, 250);
-  setCookie("fcb_clasico_cookies", "true", 999999999);
+  setCookie("_cookies", "true", 999999999);
 }
 
 
