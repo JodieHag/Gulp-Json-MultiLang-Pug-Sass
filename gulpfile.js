@@ -2,7 +2,7 @@ var gulp = require('gulp');
 // Include Our Plugins
 var jshint  = require('gulp-jshint');
 var sass = require('gulp-sass');
-var jade    = require('gulp-jade');
+var pug    = require('gulp-pug');
 var concat  = require('gulp-concat');
 var uglify  = require('gulp-uglify');
 var rename  = require('gulp-rename');
@@ -43,16 +43,16 @@ gulp.task('sass', function () {
 
 
 
-//compile jade to html and translate
-gulp.task('jade', ['statics', 'scripts'], function() {
+//compile pug to html and translate
+gulp.task('pug', ['statics', 'scripts'], function() {
 
 	var translations = [];
 
 
 	for (var lang in projectSettings.langs) {
 		for (var page in projectSettings.pages) {
-			translations.push(gulp.src('dev/jade/' + projectSettings.pages[page] + '.jade')
-				.pipe(jade({
+			translations.push(gulp.src('dev/pug/' + projectSettings.pages[page] + '.pug')
+				.pipe(pug({
 					locals: {
 						i18n: require('./dev/i18n/' + projectSettings.langs[lang] + '/translation.json'),
 						lang: lang
@@ -110,7 +110,7 @@ gulp.task('statics', function() {
 gulp.task('watch', function() {
 	gulp.watch('dev/js/*.js', ['lint', 'scripts']);
 	gulp.watch('dev/sass/*/*.*', ['sass']);
-	gulp.watch('dev/jade/*.jade', ['jade']);
+	gulp.watch('dev/pug/*.pug', ['pug']);
 });
 
 //init http server
@@ -127,6 +127,5 @@ gulp.task('zip', () => {
 		.pipe(gulp.dest('dist'));
 });
 // Default Task
-gulp.task('default', ['sass', 'scripts', 'statics', 'jade', 'watch', 'connect']);
+gulp.task('default', ['sass', 'scripts', 'statics', 'pug', 'watch', 'connect']);
 gulp.task('dist', ['zip']);
-
