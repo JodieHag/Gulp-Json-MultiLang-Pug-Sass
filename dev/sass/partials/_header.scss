@@ -1,0 +1,98 @@
+header {
+  @extend %fix;
+  background: darken($drk,4%);
+  padding: 0 7%;
+  transform-style:preserve-3d;
+  box-shadow: 0 2px 5px rgba(#444,.3);
+  perspective:1555px;
+}
+
+nav {
+
+  li {
+    position: relative;
+    display: inline-block;
+    float: left;
+    &:hover + .submenu {
+      transform:rotateY(0deg);
+    }
+  }
+  .submenu {
+    transform-origin:left top;
+    transform:rotateY(-90deg);
+    &:hover {
+      transform:rotateY(0deg);
+    }
+  }
+
+
+  a {
+    position: relative;
+    z-index: 599;
+    color: $wht;
+    background: darken($drk,4%);
+    text-decoration: none;
+    display: block;
+    padding: 1.5em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition:all .2s ease;
+
+    i[class*="caret"] {
+      color: lighten($drk,4%);
+      margin-left: .15em;
+    }
+
+    &:hover {
+      color: $grn;
+    }
+
+    &:hover + .submenu {
+      opacity: 1;
+      transform:rotateX(0deg);
+      visibility: visible;
+    }
+  }
+  .submenu {
+    display: block;
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+    z-index: 499;
+    width: 14em;
+    top: 100%;
+    left: 0;
+    background: darken($drk,4%);
+    box-shadow: 0 2px 5px rgba(#444,.3);
+    transform-origin:top center;
+    transform:rotateX(-90deg);
+    transition:all .25s ease;
+
+    li > .submenu {
+      top: 0;
+      left: 100%;
+    }
+
+    &:hover {
+     opacity: 1;
+     //transform:rotateX(0deg);
+     visibility: visible;
+    }
+
+    li {
+      float: none;
+      display: block;
+    }
+    a {
+      width: 100%;
+      display: block;
+      font-weight: 300;
+      padding: 1.4em 2em;
+      &:hover {
+        color: $wht;
+        background: darken($grn,2.5%);
+      }
+    }
+  }
+}

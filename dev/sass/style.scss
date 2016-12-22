@@ -1,17 +1,17 @@
 //
-// Style 
+// Style
 // Global output file
 //
 //
 
-// Modules : 
+// Modules :
 // files like functions, variables, mixins etc
 
 @import "utils/_functions";
 @import "utils/_mixins";
 @import "utils/_utility";
 
-// Components : 
+// Components :
 // Contain files like list,
 // typography, sliders, modals
 @import "components/_fonts";
@@ -19,14 +19,15 @@
 @import "components/_icons";
 @import "components/_language-menu";
 
-// Partials : 
+// Partials :
 // Contain files like header, footer, sidebars,
 // widgets, breadcrumbs.. patterns that contain components
 
 @import "partials/_base";
+@import "partials/_header";
 @import "partials/_home";
 @import "partials/_footer";
 
 
-// Pages : 
+// Pages :
 // Pages with particular styles.
