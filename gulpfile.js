@@ -35,11 +35,11 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
     return gulp.src('dev/sass/style.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(concat('styles.css')) //los mete todos en el mismo archivo
-        .pipe(cssmin()) //minimiza los css
-        .pipe(rename({
-            suffix: '.min'
-        })) //renombra
+        // .pipe(concat('styles.css')) //los mete todos en el mismo archivo
+        // .pipe(cssmin()) //minimiza los css
+        // .pipe(rename({
+        //     suffix: '.min'
+        // })) //renombra
         .pipe(gulp.dest('www/css'));
 });
 
@@ -76,12 +76,20 @@ gulp.task('scripts', function() {
     return gulp.src([
             'dev/js/*.js'
         ])
-        .pipe(concat('app.min.js'))
-        .pipe(uglify())
+        .pipe(concat('mainjs'))
+        //.pipe(uglify())
         .pipe(gulp.dest('www/js'));
 });
 
-
+// Concatenate & Minify Vendor
+gulp.task('vendor', function() {
+    return gulp.src([
+            'dev/js/vendor/**/*.*'
+        ])
+        //.pipe(concat('app.min.js'))
+        //.pipe(uglify())
+        .pipe(gulp.dest('www/js/vendor'));
+});
 //copy statics && external css
 gulp.task('statics', function() {
     var media = gulp.src('dev/media/**/*.*')
@@ -107,13 +115,26 @@ gulp.task('vendor', function() {
         //.pipe(uglify())
         .pipe(gulp.dest('www/js/vendor'));
 });
-
+//Json Errors Files
+gulp.task('json', function() {
+    for (var lang in projectSettings.langs) {
+        return gulp.src([
+                'dev/i18n/' + projectSettings.langs[lang] + '/errormessage.json'
+            ])
+            .pipe(gulp.dest('www/i18n/' + projectSettings.langs[lang]));
+    }
+});
 // Watch Files For Changes
 gulp.task('watch', function() {
+    gulp.watch('dev/js/vendor/**/*.js', ['lint', 'vendor']);
     gulp.watch('dev/js/*.js', ['lint', 'scripts']);
+    gulp.watch('dev/js/components/*.js', ['lint', 'scripts']);
     gulp.watch('dev/sass/*/*.*', ['sass']);
     gulp.watch('dev/pug/*.pug', ['pug']);
-    gulp.watch('dev/pug/**/*.pug', ['pug']);
+    gulp.watch('dev/pug/partials/*.pug', ['pug']);
+    for (var lang in projectSettings.langs) {
+        gulp.watch('dev/i18n/' + projectSettings.langs[lang] + '/errormessage.json', ['json']);
+    }
 });
 
 //init http server
@@ -130,5 +151,5 @@ gulp.task('zip', () => {
         .pipe(gulp.dest('dist'));
 });
 // Default Task
-gulp.task('default', ['sass', 'scripts', 'vendor', 'statics', 'pug', 'watch', 'connect']);
+gulp.task('default', ['sass', 'scripts', 'vendor', 'json', 'statics', 'pug', 'watch', 'connect']);
 gulp.task('dist', ['zip']);
