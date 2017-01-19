@@ -76,7 +76,7 @@ gulp.task('scripts', function() {
     return gulp.src([
             'dev/js/*.js'
         ])
-        .pipe(concat('mainjs'))
+        .pipe(concat('main.js'))
         //.pipe(uglify())
         .pipe(gulp.dest('www/js'));
 });
