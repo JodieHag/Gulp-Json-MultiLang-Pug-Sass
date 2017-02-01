@@ -19,7 +19,7 @@ var projectSettings = {
     },
     pages: {
         'index': 'index',
-        'confirmacion': 'confirmacion',
+        'form': 'form',
         'gracias': 'gracias'
     }
 };
@@ -130,10 +130,10 @@ gulp.task('watch', function() {
     gulp.watch('dev/js/*.js', ['lint', 'scripts']);
     gulp.watch('dev/js/components/*.js', ['lint', 'scripts']);
     gulp.watch('dev/sass/*/*.*', ['sass']);
-    gulp.watch('dev/pug/*.pug', ['pug']);
+    gulp.watch(['dev/pug/*.pug', 'dev/pug/**/*.pug'], ['pug']);
     gulp.watch('dev/pug/partials/*.pug', ['pug']);
     for (var lang in projectSettings.langs) {
-        gulp.watch('dev/i18n/' + projectSettings.langs[lang] + '/errormessage.json', ['json']);
+        gulp.watch('dev/i18n/' + projectSettings.langs[lang] + '/*.json', ['json']);
     }
 });
 

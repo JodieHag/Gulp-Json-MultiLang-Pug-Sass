@@ -1,0 +1,11 @@
+include includers/head.pug
+body(data-language!=lang)
+	include includers/components/header.pug
+	h2
+		| #{i18n.general.confirmacion}
+
+	a(href="media/pdf/Feminismo-genero-y-patriarcado-Alda-Facio.pdf", target="_blank")
+		button
+			| Descargar PDF
+
+include includers/components/footer.pug
