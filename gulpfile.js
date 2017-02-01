@@ -146,7 +146,7 @@ gulp.task('connect', function() {
 });
 //
 gulp.task('zip', () => {
-    return gulp.src('www/*')
+    return gulp.src('www/**/*.*')
         .pipe(zip('zip-test.zip'))
         .pipe(gulp.dest('dist'));
 });
