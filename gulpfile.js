@@ -124,6 +124,15 @@ gulp.task('json', function() {
             .pipe(gulp.dest('www/i18n/' + projectSettings.langs[lang]));
     }
 });
+//css
+gulp.task('css', function() {
+    return gulp.src([
+            'dev/css/**/*.*'
+        ])
+        //.pipe(concat('app.min.js'))
+        //.pipe(uglify())
+        .pipe(gulp.dest('www/css'));
+});
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('dev/js/vendor/**/*.js', ['lint', 'vendor']);
@@ -151,5 +160,5 @@ gulp.task('zip', () => {
         .pipe(gulp.dest('dist'));
 });
 // Default Task
-gulp.task('default', ['sass', 'scripts', 'vendor', 'json', 'statics', 'pug', 'watch', 'connect']);
+gulp.task('default', ['sass', 'css', 'scripts', 'vendor', 'json', 'statics', 'pug', 'watch', 'connect']);
 gulp.task('dist', ['zip']);
