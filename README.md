@@ -26,7 +26,7 @@ Todos sabemos como funciona, como esto es un proyecto de git, aquí colocamos lo
 ###gulpfile.js
 Donde se va a basar prácticamente el 80% de nuetra formación, y lo que es el "cerebro" y "corazón" de nuestro proyecto node, arracanado con gulp. (+ info [aquí](http://gulpjs.com/)). Gulp es un conjunto de herramientas para la automatización de tareas, donde podremos construir, en este ejemplo, la compilación sass y pug, minificación de archivos, compilación de plantillas en multilingual... Existen otras variantes como Grunt o Webpack... 
 
-##Inicializing
+##Inicialización
 Vamos a empezar a arrancar nuestro proyecto starter, para ello vamos a la consola, nos movemos a la raiz del proyecto y ejecutamos
 
 `$npm install`
