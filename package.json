@@ -1,6 +1,6 @@
 {
   "name": "Gulp-Translate",
-  "version": "2.0",
+  "version": "2.0.0",
   "keywords": "NodeJs, Pug, i18n, Json, Sass, esLint, translate",
   "description": "#####Development technologies * [pug](http://pug-lang.com): to markup * [Sass](http://sass-lang.com/): to styles * [JS](http://vanilla-js.com/): to interaction",
   "main": "gulpfile.js",
