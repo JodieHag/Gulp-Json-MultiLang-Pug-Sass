@@ -67,4 +67,3 @@
 //   initLayersCookies();
 //   openAlertCookies();
 // });
-//

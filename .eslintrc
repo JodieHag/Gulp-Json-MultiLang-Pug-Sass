@@ -1,0 +1,20 @@
+{
+  extends: 'standard',
+  env: {
+    browser: true,
+    es6: true,
+    jquery: true
+  },
+  globals: {
+    jQuery: false
+  },
+  parserOptions: {
+    ecmaVersion: 6
+  },
+  rules: {
+    comma-dangle: ['error', {
+      functions: 'ignore'
+      }
+    ]
+  }
+}

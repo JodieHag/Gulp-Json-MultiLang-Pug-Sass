@@ -1,35 +1,47 @@
 {
   "name": "Gulp-Translate",
-  "version": "0.0.0",
+  "version": "2.0",
+  "keywords": "NodeJs, Pug, i18n, Json, Sass, esLint, translate",
   "description": "#####Development technologies * [pug](http://pug-lang.com): to markup * [Sass](http://sass-lang.com/): to styles * [JS](http://vanilla-js.com/): to interaction",
   "main": "gulpfile.js",
   "dependencies": {
     "gulp": "^3.9.1"
   },
   "devDependencies": {
-    "gulp-concat": "^2.5.2",
-    "gulp-connect": "^5.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.5.0",
     "gulp-cssmin": "^0.1.7",
-    "gulp-jshint": "^2.0.4",
-    "gulp-pug": "^3.1.0",
+    "gulp-eslint": "^4.0.2",
+    "gulp-livereload": "^3.8.1",
+    "gulp-open": "^3.0.1",
+    "gulp-pug": "^3.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^2.0.0",
+    "gulp-uglify": "^2.1.2",
     "gulp-zip": "^3.2.0",
-    "jshint": "^2.9.4",
-    "merge-stream": "^1.0.0"
+    "merge-stream": "^1.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp",
+    "build": "gulp zip",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "linter": "eslint dev/"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/JodieHag/Gulp-Json-MultiLang-Pug-Sass"
   },
-  "author": "Judit Sánchez",
-  "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/JodieHag/Gulp-Json-MultiLang-Pug-Sass/issues",
+    "email": "info@jodiehag.com"
   },
-  "homepage": "www.shesyu.es"
+  "author": "Judit Sánchez (JodieHag)",
+  "email": "info@jodiehag.com",
+  "license": "ISC",
+  "homepage": "www.jodiehag.com"
 }
