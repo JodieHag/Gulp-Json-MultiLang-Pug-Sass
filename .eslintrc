@@ -1,5 +1,6 @@
 {
   extends: 'standard',
+  parser: 'babel-eslint',
   env: {
     browser: true,
     es6: true,
@@ -12,9 +13,5 @@
     ecmaVersion: 6
   },
   rules: {
-    comma-dangle: ['error', {
-      functions: 'ignore'
-      }
-    ]
   }
 }
