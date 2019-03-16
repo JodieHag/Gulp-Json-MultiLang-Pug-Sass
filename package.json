@@ -8,7 +8,8 @@
     "node": "11.x"
   },
   "dependencies": {
-    "gulp": "^4.0.0"
+    "gulp": "^4.0.0",
+    "pre-commit": "^1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
@@ -47,6 +48,7 @@
     "prettier:watch": "onchange 'dev/**/*.js' -- prettier --write {{changed}}",
     "linter": "eslint dev/"
   },
+  "pre-commit": "prettier",
   "repository": {
     "type": "git",
     "url": "https://github.com/JodieHag/Gulp-Json-MultiLang-Pug-Sass"
