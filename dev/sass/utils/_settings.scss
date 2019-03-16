@@ -1,3 +1,92 @@
 /* ======================================================================
   Settings
 ======================================================================== */
+
+// Media Query
+$global-mq-breakpoints: (
+  mobile:   576px,
+  tablet:   768px,
+  desktop:  992px,
+  wide:     1200px
+) !default;
+
+// Global Settings
+
+$global-radius: 5px;
+$global-transition: 0.3s !default;
+
+// Global colors
+$global-colors: (
+  "branding-primary": hsl(72, 54%, 52%),
+  "notify-success": hsl(122, 39%, 49%),
+  "notify-info": hsl(199, 92%, 56%),
+  "notify-warning": hsl(36, 100%, 50%),
+  "notify-danger": hsl(4, 90%, 58%),
+);
+
+/**
+ * Baseline grid lines height.
+ * Every spacing metric should be based on this.
+ */
+
+$global-baseline: 6px !default;
+
+/**
+ * How many grid lines should our spacing unit variants span?
+ * Each value should be an unitless integer.
+ */
+
+$unit-factor-tiny:   1 !default;   // 6px
+$unit-factor-small:  2 !default;   // 12px
+$unit-factor:        4 !default;   // 24px
+$unit-factor-large:  8 !default;   // 48px
+$unit-factor-huge:  16 !default;   // 96px
+/**
+ * This will give us variables to create spacing values such as padding and
+ * margin utilities and mantain vertical rythm across the project.
+ *
+ * It is not recommended that you modify these following variables
+ * (it can break your vertical rhythm).
+ */
+
+$global-spacing-unit-tiny:  $global-baseline * $unit-factor-tiny !default;
+$global-spacing-unit-small: $global-baseline * $unit-factor-small !default;
+$global-spacing-unit:       $global-baseline * $unit-factor !default;
+$global-spacing-unit-large: $global-baseline * $unit-factor-large !default;
+$global-spacing-unit-huge:  $global-baseline * $unit-factor-huge !default;
+
+// Global font sizes
+$global-font-size: 16px !default;
+$global-line-height: $global-spacing-unit !default;
+$global-font-sizes: (
+  h1: 32px,
+  h2: 28px,
+  h3: 24px,
+  h4: 20px,
+  h5: 18px,
+  h6: 16px
+) !default;
+
+
+$bg-body: 						    #16A085; // White
+$color-third-text: 				#9e9e9e; // Branding blue
+$bg-button: 			        #836aad; // Language mobile menu
+$colot-text:							#FFF; //Text color
+$bg-footer:								#16A085;
+$drk:                     #836aad;
+$grn:                     #00A5E1;
+$wht:                     #f5f5f5;
+
+// Typography
+// -------------------------
+$font-family-second: 			Arial, Helvetica, sans-serif;
+$font-family-regular: 		'atlasgr-400', sans-serif;
+$font-family-medium: 			'atlasgr-700', sans-serif;
+$font-family-bold: 				'atlasgr-900', sans-serif;
+
+$font-size-button: 				22px;
+$font-size-copy-footer:	  12px;
+
+// Others
+// -------------------------
+$content-width: 				1280px;

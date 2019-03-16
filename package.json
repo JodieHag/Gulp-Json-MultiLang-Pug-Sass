@@ -8,6 +8,7 @@
     "node": "11.x"
   },
   "dependencies": {
+    "eslint-plugin-prettier": "^3.0.1",
     "gulp": "^4.0.0",
     "pre-commit": "^1.2.2"
   },

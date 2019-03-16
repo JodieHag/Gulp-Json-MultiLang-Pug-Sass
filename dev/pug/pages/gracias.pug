@@ -1,0 +1,18 @@
+extends ../layout.pug
+block title
+  title
+    | gracias
+block scripts-head
+  link(rel="stylesheet" href="/css/gracias.min.css")
+block content
+  include ../components/header
+  h2
+    | #{i18n.general.gracias}
+
+    .owl-carousel
+      .item
+        img(src="/media/img/gsutarme.jpg")
+      .item
+        img(src="/media/img/sexodebil.jpeg")
+      .item
+        img(src="/media/img/machismo.jpg")

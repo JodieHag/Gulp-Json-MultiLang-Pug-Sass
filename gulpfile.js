@@ -66,23 +66,25 @@ gulp.task('css', () => {
     .on('end', () => { log('css Done!') })
 });
 
-gulp.task('sass', () => {
-  return gulp.src('dev/sass/style.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(postcss(plugins))
-    // .pipe(concat('styles.css')) // los mete todos en el mismo archivo
-    .pipe(rename({
-      suffix: '.min'
-    })) // renombra
-    .pipe(gulp.dest('www/css'))
-    .pipe(livereload())
-    .on('end', () => { log('sass Done!') })
+gulp.task('sass', async () => {
+  for (const page in projectSettings.pages) {
+    await gulp.src(`dev/sass/pages/${page}.scss`)
+      .pipe(concat(`/${page}.scss`)) // los mete todos en el mismo archivo
+      .pipe(sass().on('error', sass.logError))
+      .pipe(postcss(plugins))
+      .pipe(rename({
+        suffix: '.min'
+      })) // renombra
+      .pipe(gulp.dest('www/css'))
+      .pipe(livereload())
+      .on('success', () => { log(`sass page: ${page} Done!`) })
+  }
 });
 
 // Concatenate & Minify JS
 gulp.task('scripts', () => {
   return gulp.src(['node_modules/babel-polyfill/dist/polyfill.js', 'src/js/*.js'])
-    .pipe(prettier({ singleQuote: true }))
+    .pipe(prettier())
     .pipe(babel())
     .pipe(concat('main.js'))
     .pipe(gulp.dest('www/js'))
@@ -105,7 +107,7 @@ gulp.task('pug', async () => {
   for (const lang in projectSettings.langs) {
     for (const page in projectSettings.pages) {
       translations.push(
-        await gulp.src('dev/pug/' + projectSettings.pages[page] + '.pug')
+        await gulp.src('dev/pug/pages/' + projectSettings.pages[page] + '.pug')
           .pipe(pug({
             locals: {
               i18n: require('./dev/i18n/' + projectSettings.langs[lang] + '/translation.json'),
@@ -118,7 +120,7 @@ gulp.task('pug', async () => {
           .pipe(gulp.dest(`www/${lang}`))
           .pipe(livereload())
           .on('error', (error) => log(error))
-          .on('success', () => log('great pug!'))
+          .on('end', () => log('great pug!'))
       );
       critical.generate({
         inline: true,

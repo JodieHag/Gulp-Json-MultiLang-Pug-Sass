@@ -27,7 +27,7 @@ body {
     color: $colot-text;
     font-family: $font-family-regular;
     font-weight: 400;
-    @include rem(font-size, $font-size-base);
+    @include rem(font-size, $global-font-size);
 }
 
 .content {

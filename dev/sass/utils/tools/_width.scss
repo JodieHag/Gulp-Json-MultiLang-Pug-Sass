@@ -1,0 +1,19 @@
+/* ==========================================================================
+   WIDTH UTILITY
+   ========================================================================== */
+
+/**
+ * Basic common width utilities.
+ */
+
+.mm-width-none {
+  width: 0 !important;
+}
+
+.mm-width-full {
+  width: 100% !important;
+}
+
+.mm-width-screen {
+  width: 100vw !important;
+}
