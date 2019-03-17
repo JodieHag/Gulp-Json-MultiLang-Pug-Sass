@@ -32,26 +32,21 @@ gulp.task('connect', async () => {
     root: 'www',
     port: 8080,
     livereload: true
-  })
+  });
 });
 
 // lint JS
-/*gulp.task('lint', () => {
+/* gulp.task('lint', () => {
   return gulp.src('dev/js/!*.js')
     .pipe(eslint('./.eslintrc'))
     .pipe(eslint.format('table'))
     .pipe(eslint.failAfterError())
-})*/
+}) */
 
 // Config para el postCss
 const plugins = [
   autoprefixer({
-    browsers: [
-      'last 2 versions',
-      '> 1%',
-      'not ie <= 9',
-      'ie >= 10'
-    ], // añade los prefijos para las compatibilidades con los browsers
+    browsers: ['last 2 versions', '> 1%', 'not ie <= 9', 'ie >= 10'], // añade los prefijos para las compatibilidades con los browsers
     grid: true
   }),
   cssnano() // minimiza los scss/css
@@ -59,46 +54,58 @@ const plugins = [
 
 // css de terceros
 gulp.task('css', () => {
-  return gulp.src(['dev/css/**/*.*'])
+  return gulp
+    .src(['dev/css/**/*.*'])
     .pipe(postcss(plugins))
     .pipe(gulp.dest('www/css'))
     .pipe(livereload())
-    .on('end', () => { log('css Done!') })
+    .on('end', () => {
+      log('css Done!');
+    });
 });
 
 gulp.task('sass', async () => {
   for (const page in projectSettings.pages) {
-    await gulp.src(`dev/sass/pages/${page}.scss`)
+    await gulp
+      .src(`dev/sass/pages/${page}.scss`)
       .pipe(concat(`/${page}.scss`)) // los mete todos en el mismo archivo
       .pipe(sass().on('error', sass.logError))
       .pipe(postcss(plugins))
-      .pipe(rename({
-        suffix: '.min'
-      })) // renombra
+      .pipe(
+        rename({
+          suffix: '.min'
+        })
+      ) // renombra
       .pipe(gulp.dest('www/css'))
       .pipe(livereload())
-      .on('success', () => { log(`sass page: ${page} Done!`) })
+      .on('success', () => {
+        log(`sass page: ${page} Done!`);
+      });
   }
 });
 
 // Concatenate & Minify JS
 gulp.task('scripts', () => {
-  return gulp.src(['node_modules/babel-polyfill/dist/polyfill.js', 'src/js/*.js'])
+  return gulp
+    .src(['node_modules/babel-polyfill/dist/polyfill.js', 'src/js/*.js'])
     .pipe(prettier())
     .pipe(babel())
     .pipe(concat('main.js'))
     .pipe(gulp.dest('www/js'))
     .pipe(livereload())
-    .on('end', () => { log('scripts Done!') })
+    .on('end', () => {
+      log('scripts Done!');
+    });
 });
 
 // copy statics && external css
 gulp.task('statics', () => {
-  const media = gulp.src('dev/media/**/*.*')
+  const media = gulp
+    .src('dev/media/**/*.*')
     .pipe(gulp.dest('www/media'))
     .pipe(livereload());
 
-  return merge(media)
+  return merge(media);
 });
 
 // compile pug to html and translate
@@ -107,19 +114,26 @@ gulp.task('pug', async () => {
   for (const lang in projectSettings.langs) {
     for (const page in projectSettings.pages) {
       translations.push(
-        await gulp.src('dev/pug/pages/' + projectSettings.pages[page] + '.pug')
-          .pipe(pug({
-            locals: {
-              i18n: require('./dev/i18n/' + projectSettings.langs[lang] + '/translation.json'),
-              lang: lang
-            }
-          }))
-          .pipe(rename({
-            basename: projectSettings.pages[page]
-          }))
+        await gulp
+          .src('dev/pug/pages/' + projectSettings.pages[page] + '.pug')
+          .pipe(
+            pug({
+              locals: {
+                i18n: require('./dev/i18n/' +
+                  projectSettings.langs[lang] +
+                  '/translation.json'),
+                lang: lang
+              }
+            })
+          )
+          .pipe(
+            rename({
+              basename: projectSettings.pages[page]
+            })
+          )
           .pipe(gulp.dest(`www/${lang}`))
           .pipe(livereload())
-          .on('error', (error) => log(error))
+          .on('error', error => log(error))
           .on('end', () => log('great pug!'))
       );
       critical.generate({
@@ -129,14 +143,17 @@ gulp.task('pug', async () => {
         dest: `${lang}/${projectSettings.pages[page]}-critical.html`,
         minify: true,
         timeout: 30000,
-        dimensions: [{
-          height: 200,
-          width: 500
-        }, {
-          height: 900,
-          width: 1200
-        }]
-      })
+        dimensions: [
+          {
+            height: 200,
+            width: 500
+          },
+          {
+            height: 900,
+            width: 1200
+          }
+        ]
+      });
     }
   }
 });
@@ -149,21 +166,25 @@ gulp.task('pug', async () => {
 
 // Concatenate & Minify JS
 gulp.task('vendor', () => {
-  return gulp.src(['dev/js/vendor/**/*.*'])
-    // .pipe(concat('app.min.js'))
-    // .pipe(uglify())
-    .pipe(babel())
-    .pipe(concat('vendors.js'))
-    .pipe(gulp.dest('www/js/vendor'))
-    .pipe(livereload())
+  return (
+    gulp
+      .src(['dev/js/vendor/**/*.*'])
+      // .pipe(concat('app.min.js'))
+      // .pipe(uglify())
+      .pipe(babel())
+      .pipe(concat('vendors.js'))
+      .pipe(gulp.dest('www/js/vendor'))
+      .pipe(livereload())
+  );
 });
 
 // Json
 gulp.task('json', () => {
   for (const lang in projectSettings.langs) {
-    return gulp.src(['dev/i18n/' + projectSettings.langs[lang] + '/errormessage.json'])
+    return gulp
+      .src(['dev/i18n/' + projectSettings.langs[lang] + '/errormessage.json'])
       .pipe(gulp.dest('www/i18n/' + projectSettings.langs[lang]))
-      .pipe(livereload())
+      .pipe(livereload());
   }
 });
 
@@ -177,19 +198,26 @@ gulp.task('watch', async () => {
   await gulp.watch(['dev/pug/*.pug', 'dev/pug/**/*.pug'], gulp.series(['pug']));
   await gulp.watch('dev/pug/partials/*.pug', gulp.series(['pug']));
   for (const lang in projectSettings.langs) {
-    await gulp.watch(`dev/i18n/${projectSettings.langs[lang]}/*.json`, gulp.series(['json']));
+    await gulp.watch(
+      `dev/i18n/${projectSettings.langs[lang]}/*.json`,
+      gulp.series(['json'])
+    );
   }
 });
 
 // generate a build dist
 gulp.task('zip', () => {
-  return gulp.src('www/**/*.*')
+  return gulp
+    .src('www/**/*.*')
     .pipe(zip('zip-landing.zip'))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('styles', gulp.series(['sass', 'css']));
-gulp.task('scripts-statics', gulp.parallel(['statics', 'scripts', 'vendor', 'json']));
+gulp.task(
+  'scripts-statics',
+  gulp.parallel(['statics', 'scripts', 'vendor', 'json'])
+);
 gulp.task('server', gulp.series(['connect', 'watch']));
 gulp.task('build', gulp.series(['styles', 'scripts-statics', 'pug']));
 
