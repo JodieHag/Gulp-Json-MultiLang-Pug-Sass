@@ -1,56 +1,43 @@
-const gulp = require('gulp');
-
+const gulp = require('gulp')
 // Include Our Plugins
-const autoprefixer = require('autoprefixer');
-const babel = require('gulp-babel');
-const concat = require('gulp-concat');
-const connect = require('gulp-connect');
-const critical = require('critical');
-const cssnano = require('cssnano');
-const eslint = require('gulp-eslint');
-const livereload = require('gulp-livereload');
-const log = require('fancy-log');
-const merge = require('merge-stream');
-const sass = require('gulp-sass');
-const postcss = require('gulp-postcss');
-const open = require('gulp-open');
-const prettier = require('gulp-prettier');
-const pug = require('gulp-pug');
-const rename = require('gulp-rename');
-const zip = require('gulp-zip');
+const autoprefixer = require('autoprefixer')
+const babel = require('gulp-babel')
+const concat = require('gulp-concat')
+const connect = require('gulp-connect')
+const critical = require('critical').stream
+const cssnano = require('cssnano')
+const livereload = require('gulp-livereload')
+const log = require('fancy-log')
+const merge = require('merge-stream')
+const sass = require('gulp-sass')
+const postcss = require('gulp-postcss')
+const open = require('gulp-open')
+const prettier = require('gulp-prettier')
+const pug = require('gulp-pug')
+const rename = require('gulp-rename')
+const zip = require('gulp-zip')
 
 // importar configuración de idioma y páginas
-const config = require('./config');
+const config = require('./config')
 
-const projectSettings = config.defaults;
+const projectSettings = config.defaults
 
-process.setMaxListeners(0);
+process.setMaxListeners(0)
 
 // init http server
 gulp.task('connect', async () => {
   await connect.server({
     root: 'www',
     port: 8080,
-    livereload: true
-  });
-});
-
-// lint JS
-/* gulp.task('lint', () => {
-  return gulp.src('dev/js/!*.js')
-    .pipe(eslint('./.eslintrc'))
-    .pipe(eslint.format('table'))
-    .pipe(eslint.failAfterError())
-}) */
+    livereload: true,
+  })
+})
 
 // Config para el postCss
 const plugins = [
-  autoprefixer({
-    browsers: ['last 2 versions', '> 1%', 'not ie <= 9', 'ie >= 10'], // añade los prefijos para las compatibilidades con los browsers
-    grid: true
-  }),
-  cssnano() // minimiza los scss/css
-];
+  autoprefixer(),
+  cssnano(), // minimiza los scss/css
+]
 
 // css de terceros
 gulp.task('css', () => {
@@ -60,9 +47,9 @@ gulp.task('css', () => {
     .pipe(gulp.dest('www/css'))
     .pipe(livereload())
     .on('end', () => {
-      log('css Done!');
-    });
-});
+      log('css Done!')
+    })
+})
 
 gulp.task('sass', async () => {
   for (const page in projectSettings.pages) {
@@ -73,16 +60,16 @@ gulp.task('sass', async () => {
       .pipe(postcss(plugins))
       .pipe(
         rename({
-          suffix: '.min'
+          suffix: '.min',
         })
       ) // renombra
       .pipe(gulp.dest('www/css'))
       .pipe(livereload())
       .on('success', () => {
-        log(`sass page: ${page} Done!`);
-      });
+        log(`sass page: ${page} Done!`)
+      })
   }
-});
+})
 
 // Concatenate & Minify JS
 gulp.task('scripts', () => {
@@ -94,23 +81,23 @@ gulp.task('scripts', () => {
     .pipe(gulp.dest('www/js'))
     .pipe(livereload())
     .on('end', () => {
-      log('scripts Done!');
-    });
-});
+      log('scripts Done!')
+    })
+})
 
 // copy statics && external css
 gulp.task('statics', () => {
   const media = gulp
     .src('dev/media/**/*.*')
     .pipe(gulp.dest('www/media'))
-    .pipe(livereload());
+    .pipe(livereload())
 
-  return merge(media);
-});
+  return merge(media)
+})
 
 // compile pug to html and translate
 gulp.task('pug', async () => {
-  let translations = [];
+  let translations = []
   for (const lang in projectSettings.langs) {
     for (const page in projectSettings.pages) {
       translations.push(
@@ -122,41 +109,40 @@ gulp.task('pug', async () => {
                 i18n: require('./dev/i18n/' +
                   projectSettings.langs[lang] +
                   '/translation.json'),
-                lang: lang
-              }
+                lang: lang,
+              },
             })
           )
           .pipe(
             rename({
-              basename: projectSettings.pages[page]
+              basename: projectSettings.pages[page],
             })
           )
+          .pipe(
+            critical({
+              inline: true,
+              base: 'www/',
+              css: [`css/${projectSettings.pages[page]}.min.css`],
+              minify: true,
+              dimensions: [
+                {
+                  height: 200,
+                  width: 500,
+                },
+                {
+                  height: 900,
+                  width: 1200,
+                },
+              ],
+            })
+          )
+          .on('error', (error) => log(error))
           .pipe(gulp.dest(`www/${lang}`))
           .pipe(livereload())
-          .on('error', error => log(error))
-          .on('end', () => log('great pug!'))
-      );
-      critical.generate({
-        inline: true,
-        base: `www/`,
-        src: `${lang}/${projectSettings.pages[page]}.html`,
-        dest: `${lang}/${projectSettings.pages[page]}-critical.html`,
-        minify: true,
-        timeout: 30000,
-        dimensions: [
-          {
-            height: 200,
-            width: 500
-          },
-          {
-            height: 900,
-            width: 1200
-          }
-        ]
-      });
+      )
     }
   }
-});
+})
 
 // Open one file with default application
 /* gulp.task('open', async () => {
@@ -175,8 +161,8 @@ gulp.task('vendor', () => {
       .pipe(concat('vendors.js'))
       .pipe(gulp.dest('www/js/vendor'))
       .pipe(livereload())
-  );
-});
+  )
+})
 
 // Json
 gulp.task('json', () => {
@@ -184,43 +170,43 @@ gulp.task('json', () => {
     return gulp
       .src(['dev/i18n/' + projectSettings.langs[lang] + '/errormessage.json'])
       .pipe(gulp.dest('www/i18n/' + projectSettings.langs[lang]))
-      .pipe(livereload());
+      .pipe(livereload())
   }
-});
+})
 
 //  Watch Files For Changes
 gulp.task('watch', async () => {
-  livereload.listen();
-  await gulp.watch('dev/js/vendor/**/*.js', gulp.series(['vendor']));
-  await gulp.watch('dev/js/*.js', gulp.series(['scripts']));
-  await gulp.watch('dev/js/components/*.js', gulp.series(['scripts']));
-  await gulp.watch('dev/sass/*/*.*', gulp.series(['sass']));
-  await gulp.watch(['dev/pug/*.pug', 'dev/pug/**/*.pug'], gulp.series(['pug']));
-  await gulp.watch('dev/pug/partials/*.pug', gulp.series(['pug']));
+  livereload.listen()
+  await gulp.watch('dev/js/vendor/**/*.js', gulp.series(['vendor']))
+  await gulp.watch('dev/js/*.js', gulp.series(['scripts']))
+  await gulp.watch('dev/js/components/*.js', gulp.series(['scripts']))
+  await gulp.watch('dev/sass/*/*.*', gulp.series(['sass']))
+  await gulp.watch(['dev/pug/*.pug', 'dev/pug/**/*.pug'], gulp.series(['pug']))
+  await gulp.watch('dev/pug/partials/*.pug', gulp.series(['pug']))
   for (const lang in projectSettings.langs) {
     await gulp.watch(
       `dev/i18n/${projectSettings.langs[lang]}/*.json`,
       gulp.series(['json'])
-    );
+    )
   }
-});
+})
 
 // generate a build dist
 gulp.task('zip', () => {
   return gulp
     .src('www/**/*.*')
     .pipe(zip('zip-landing.zip'))
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist'))
+})
 
-gulp.task('styles', gulp.series(['sass', 'css']));
+gulp.task('styles', gulp.series(['sass', 'css']))
 gulp.task(
   'scripts-statics',
   gulp.parallel(['statics', 'scripts', 'vendor', 'json'])
-);
-gulp.task('server', gulp.series(['connect', 'watch']));
-gulp.task('build', gulp.series(['styles', 'scripts-statics', 'pug']));
+)
+gulp.task('server', gulp.series(['connect', 'watch']))
+gulp.task('build', gulp.series(['styles', 'scripts-statics', 'pug']))
 
 // Default Task
-gulp.task('default', gulp.parallel(['build', 'server']));
-gulp.task('dist', gulp.series(['zip']));
+gulp.task('default', gulp.parallel(['build', 'server']))
+gulp.task('dist', gulp.series(['zip']))
