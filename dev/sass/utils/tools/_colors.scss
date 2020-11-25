@@ -1,0 +1,13 @@
+/* ==========================================================================
+   #COLOR UTILITY
+   ========================================================================== */
+
+@each $name, $value in $global-colors {
+  .mm-text-#{$name} {
+    color: $value !important;
+  }
+
+  .mm-background-#{$name} {
+    background-color: $value !important;
+  }
+}

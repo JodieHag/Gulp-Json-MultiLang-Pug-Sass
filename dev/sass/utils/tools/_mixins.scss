@@ -1,6 +1,20 @@
 //#### UTILS #####
 //
 //
+
+%clearfix {
+  *zoom: 1;
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 // Generate a modifiers for css3 rules
 
 @mixin css3($property, $value) {
@@ -16,35 +30,35 @@
 @mixin rem($property, $values) {
   $px : ();
   $rem: ();
-  
+
   @each $value in $values {
-   
-    @if $value == 0 or $value == auto { 
+
+    @if $value == 0 or $value == auto {
       $px : append($px , $value);
       $rem: append($rem, $value);
     }
-    
-    @else { 
+
+    @else {
       $unit: unit($value);
       $val: parseInt($value);
-      
-      @if $unit == "px" {  
+
+      @if $unit == "px" {
         $px : append($px,  $value);
         $rem: append($rem, ($val / 16 + rem));
       }
-      
-      @if $unit == "rem" { 
+
+      @if $unit == "rem" {
         $px : append($px,  ($val * 16 + px));
         $rem: append($rem, $value);
       }
     }
   }
-  
-  @if $px == $rem {     
-    #{$property}: $px;  
+
+  @if $px == $rem {
+    #{$property}: $px;
   } @else {
-    #{$property}: $px;  
-    #{$property}: $rem; 
+    #{$property}: $px;
+    #{$property}: $rem;
   }
 }
 
@@ -103,10 +117,10 @@
 }
 
 
-// Using this mixin you can combine media queries and normal CSS image 
+// Using this mixin you can combine media queries and normal CSS image
 // replacement to send high resolution images to retina devices and standard resolution
 // images everywhere else. At first please make a standard resolution image ex: logo.png and
-// a high resolution image ex: logo-2x.png. If it’s a retina display, add -2x after images 
+// a high resolution image ex: logo-2x.png. If it’s a retina display, add -2x after images
 // name and set background-size.
 //
 // Please note your CSS code might be longer than you expected when it’s complied if you have many retina images.
@@ -120,12 +134,12 @@
      background: url($image + '.' + $extension) no-repeat;
      width: $width;
      height: $height;
-     
+
      @media (min--moz-device-pixel-ratio: 1.3),
            (-o-min-device-pixel-ratio: 2.6/2),
            (-webkit-min-device-pixel-ratio: 1.3),
            (min-device-pixel-ratio: 1.3),
-           (min-resolution: 1.3dppx) {     
+           (min-resolution: 1.3dppx) {
                 background-image: url($image + '-2x' + '.' + $extension) no-repeat;
                 background-size: $width $height;
      }
@@ -133,7 +147,7 @@
 
 
 // Modular media queries. It keeps media query styles near the styles they override.
-// You need to define some variables that contains 
+// You need to define some variables that contains
 
 // @link http://www.impressivewebs.com/modular-css-media-queries-sass/
 
@@ -180,7 +194,7 @@ $screen-ssm-min:              414px !default;
 
 // @param {*}   $font-family  - Name of font family
 // @param {*}   $file-path  - Path of fonts
-// @param {number}   $font-weight  - Weight of font 
+// @param {number}   $font-weight  - Weight of font
 // @param {*}   $font-style  - Style of font
 
 
@@ -194,6 +208,103 @@ $screen-ssm-min:              414px !default;
            url('#{$file-path}.svg##{$font-family}') format('svg');
     font-weight: $font-weight;
     font-style: $font-style;
+  }
+}
+
+
+/**
+ * Generates a rem font-size (with pixel fallback) and a baseline-compatible
+ * unitless line-height from a pixel font-size value. Basic usage is simply:
+ *
+ *   @include font-size(18px);
+ *
+ * You can force a specific line-height by passing it as the second argument:
+ *
+ *   @include font-size(16px, 1);
+ */
+
+@mixin font-size($font-size, $line-height: auto, $important: false) {
+  @if (type-of($font-size) == number) {
+    @if (unit($font-size) != "px") {
+      @error "`#{$font-size}` needs to be a pixel value.";
+    }
+  } @else {
+    @error "`#{$font-size}` needs to be a number.";
+  }
+
+  @if ($important == true) {
+    $important: !important;
+  } @else if ($important == false) {
+    $important: null;
+  } @else {
+    @error "`#{$important}` needs to be `true` or `false`.";
+  }
+
+  // We provide a `px` fallback for old IEs not supporting `rem` values.
+  font-size: $font-size $important;
+  font-size: ($font-size / $global-font-size) * 1rem $important;
+
+
+
+  @if ($line-height == "auto") {
+    // Define how many grid lines each text line should span.
+    // By default, we set it to the minimum number of lines necessary
+    // in order to contain the defined font-size, +1 for some breathing room.
+    $lines: ceil($font-size / $global-baseline) + 1;
+    $line-height: $lines * $global-baseline;
+
+    line-height: ($line-height / $font-size) $important;
+  }
+
+
+  @else {
+    @if (type-of($line-height) == number or $line-height == "inherit" or $line-height == "normal") {
+      line-height: $line-height $important;
+    }
+
+    @else if ($line-height != "none" and $line-height != false) {
+      @error "`#{$line-height}` is not a valid value for `$line-height`.";
+    }
+  }
+}
+
+// Check that the chosen font rules are pixel numbers.
+
+@each $_font-globals in $global-font-size $global-line-height {
+
+  @if (type-of($_font-globals) == number) {
+
+    @if (unit($_font-globals) != "px") {
+      @error "`#{$_font-globals}` needs to be a pixel value.";
+    }
+
+  } @else {
+    @error "`#{$_font-globals}` needs to be a number.";
+  }
+
+}
+
+
+// Check that the chosen size factors are unitless, integer numbers.
+
+@each $_spacing-unit in
+  $unit-factor-tiny
+  $unit-factor-small
+  $unit-factor-large
+  $unit-factor-huge {
+
+  @if (type-of($_spacing-unit) == number) {
+
+    @if (unitless($_spacing-unit) == false) {
+      @error "`#{$_spacing-unit}` needs to be unitless.";
+    }
+
+    @if ($_spacing-unit != ceil($_spacing-unit)) {
+      @error "`#{$_spacing-unit}` needs to be an integer.";
+    }
+
+  } @else {
+    @error "`#{$_spacing-unit}` needs to be a number.";
   }
 
 }

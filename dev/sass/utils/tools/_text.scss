@@ -1,0 +1,120 @@
+/* ==========================================================================
+   #TEXT UTILITY
+   ========================================================================== */
+
+/**
+ * Usual text utility classes to overcome the common text management needs.
+ */
+
+
+
+
+
+/* Alignment.
+   ========================================================================== */
+
+
+$alignments: (
+  left: left,
+  center: center,
+  right: right,
+  justify: justify
+);
+
+@each $name, $value in $alignments {
+  .mm-text-#{$name} {
+    text-align: $value !important;
+  }
+}
+
+
+
+
+
+/* Sizing.
+   ========================================================================== */
+
+
+@each $name, $value in $global-font-sizes {
+  .mm-text-#{$name} {
+    @include font-size($value, $line-height: none, $important: true);
+  }
+}
+
+
+
+
+
+/* Weights.
+   ========================================================================== */
+
+
+$text-weights: (
+  "hairline": 100,
+  "thin": 200,
+  "light": 300,
+  "normal": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+  "extrabold": 800,
+  "black": 900
+);
+
+@each $name, $value in $text-weights {
+  .mm-text-#{$name} {
+    font-weight: $value !important;
+  }
+}
+
+
+
+
+
+/* Style.
+   ========================================================================== */
+
+
+.mm-text-italic {
+  font-style: italic !important;
+}
+
+
+
+
+
+/* Transform.
+   ========================================================================== */
+
+
+$text-transforms: (
+  uppercase: uppercase,
+  lowercase: lowercase,
+  capitalize: capitalize
+);
+
+@each $name, $value in $text-transforms {
+  .mm-text-#{$name} {
+    text-transform: $value !important;
+  }
+}
+
+
+
+
+
+/* Decoration.
+   ========================================================================== */
+
+
+$text-decorations: (
+  underline: underline,
+  line-through: line-through,
+  no-underline: none
+);
+
+@each $name, $value in $text-decorations {
+  .mm-text-#{$name} {
+    text-decoration: $value !important;
+  }
+}

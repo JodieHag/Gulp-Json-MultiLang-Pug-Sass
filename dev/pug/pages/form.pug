@@ -1,0 +1,14 @@
+extends ../layout.pug
+block title
+  title
+    | form
+block scripts-head
+  link(rel="stylesheet" href="/css/form.min.css")
+block content
+  include ../components/header
+  h2
+    | #{i18n.general.confirmacion}
+
+  a(href="/media/pdf/Feminismo-genero-y-patriarcado-Alda-Facio.pdf", target="_blank")
+    button
+      | Descargar PDF

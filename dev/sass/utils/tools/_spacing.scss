@@ -1,0 +1,142 @@
+/* ==========================================================================
+   SPACING UTILITIES
+   ========================================================================== */
+
+/**
+ * Utility classes to put specific spacing values onto elements. The loop below
+ * will generate us a suite of classes like:
+ *
+ *   .mm-mt {}
+ *   .mm-pl-large {}
+ *   .mm-mr-small {}
+ *   .mm-p {}
+ *   .mm-pr-none {}
+ *   .mm-ph {}
+ *   .mm-pv-small {}
+ *   .mm-m-auto {}
+ */
+
+/* stylelint-disable string-quotes */
+/* stylelint-disable max-nesting-depth */
+/* stylelint-disable max-line-length */
+$spacing-directions: (
+  null: null,
+  't': '-top',
+  'r': '-right',
+  'b': '-bottom',
+  'l': '-left',
+  'h': '-left' '-right',
+  'v': '-top' '-bottom',
+) !default;
+
+$spacing-properties: (
+  'p': 'padding',
+  'm': 'margin',
+) !default;
+
+$spacing-sizes: (
+  null: $global-spacing-unit,
+  '-tiny': $global-spacing-unit-tiny,
+  '-small': $global-spacing-unit-small,
+  '-large': $global-spacing-unit-large,
+  '-huge': $global-spacing-unit-huge,
+  '-none': 0,
+  '-auto': auto
+) !default;
+
+@each $property-namespace, $property in $spacing-properties {
+
+  @each $direction-namespace, $direction-rules in $spacing-directions {
+
+    @each $size-namespace, $size in $spacing-sizes {
+
+      @if not($size-namespace == '-auto' and $property-namespace == 'padding') {
+
+        .mm-#{$property-namespace}#{$direction-namespace}#{$size-namespace} {
+
+          @each $direction in $direction-rules {
+            #{$property}#{$direction}: $size !important;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+/* Responsive utilities.
+   ========================================================================== */
+
+/**
+ * You can create reponsive spacings by modifying the Sass maps below.
+ *
+ * This would generate classes such as:
+ *
+ *   .mm-m-small@mobile {}
+ *   .mm-m-small@tablet {}
+ *   .mm-m-small@desktop {}
+ *   .mm-m-small@wide {}
+ *   .mm-mb-small@mobile {}
+ *   .mm-mb-small@tablet {}
+ *   .mm-mb-small@desktop {}
+ *   .mm-mb-small@wide {}
+ *
+ * If you want every spacing defined above to have responsive variants, you
+ * can mirror the spacing maps:
+ *
+ *   $responsive-spacing-directions:  $spacing-directions !default;
+ *   $responsive-spacing-properties:  $spacing-properties !default;
+ *   $responsive-spacing-sizes:       $spacing-sizes !default;
+ *
+ * WARNING: This will generate a huge chunk of extra CSS. Be selective.
+ */
+
+
+$responsive-spacing-directions: null !default;
+
+$responsive-spacing-properties: null !default;
+
+$responsive-spacing-sizes: null !default;
+
+
+
+// Don't output anything if no responsive spacings are defined.
+@if ($responsive-spacing-properties != null) {
+
+  @each $property-namespace, $property in $responsive-spacing-properties {
+
+    @each $direction-namespace, $direction-rules in $responsive-spacing-directions {
+
+      @each $size-namespace, $size in $responsive-spacing-sizes {
+
+        @each $bp-name, $bp-value in $global-mq-breakpoints {
+
+          @include mq($from: $bp-name) {
+
+            .mm-#{$property-namespace}#{$direction-namespace}#{$size-namespace}\@#{$bp-name} {
+
+              @each $direction in $direction-rules {
+                #{$property}#{$direction}: $size !important;
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

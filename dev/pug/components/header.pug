@@ -8,27 +8,26 @@ header
             |  Idioma
         ul.submenu
           li
-            a(href="index_es.html")
+            a(href="/es/index.html")
               span
                 |	#{i18n.general.es}
           li
-            a(href="index_ca.html")
+            a(href="/ca/index.html")
               span
                 |	#{i18n.general.ca}
           li
-            a(href="index_en.html")
+            a(href="/en/index.html")
               span
                 |	#{i18n.general.en}
-
       li
-        a(href="index_"+lang+".html")
+        a(href=`/${lang}/index.html`)
           span
             | #{i18n.general.home}
       li
-        a(href="form_"+lang+".html")
+        a(href=`/${lang}/form.html`)
           span
             | #{i18n.general.confirmacion}
       li
-        a(href="gracias_"+lang+".html")
+        a(href=`/${lang}/gracias.html`)
           span
             | #{i18n.general.gracias}

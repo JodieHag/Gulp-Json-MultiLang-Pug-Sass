@@ -1,17 +1,31 @@
 {
-  extends: 'standard',
-  parser: 'babel-eslint',
-  env: {
-    browser: true,
-    es6: true,
-    jquery: true
+  "extends": [
+    "standard",
+    "prettier",
+    "prettier/standard"
+  ],
+  "plugins": [
+    "import",
+    "prettier",
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018
   },
-  globals: {
-    jQuery: false
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true,
+    "jquery": true
   },
-  parserOptions: {
-    ecmaVersion: 6
+  "parser": "babel-eslint",
+  "globals": {
+    "jQuery": false
   },
-  rules: {
+  "rules": {
+    "space-before-function-paren": 0,
+    "new-cap": 0,
+    "prettier/prettier": 2
   }
 }

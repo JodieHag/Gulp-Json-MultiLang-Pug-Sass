@@ -1,0 +1,21 @@
+//
+// Style
+// Global output file
+//
+//
+
+// Modules :
+// files like functions, variables, mixins etc
+
+@import "utils/settings";
+@import "utils/tools/main";
+
+
+// Partials :
+// Contain files like header, footer, sidebars,
+// widgets, breadcrumbs.. patterns that contain components
+
+@import "partials/_base";
+@import "partials/_fonts";
+@import "partials/_header";
+@import "partials/_footer";
