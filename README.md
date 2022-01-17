@@ -1,5 +1,5 @@
 #Starter Template
-**Actualizado: 26/03/2018**
+**Actualizado: 17/01/2022**
 
 ###NodeJs, Pug, i18n, Json, Sass, esLint
 ##Previa introducción
@@ -8,7 +8,7 @@ Este proyecto está hecho con Node.js, por ello necesitaremos instalar previamen
 
 Una vez clonado el proyecto en vuestra máquina, podreis ver que se compone de una carpeta **dev**, un archivo **gulpfile.js**, un **package.json**, el **.gitignore** y este **Readme.md** hecho con MarkDown.
 
-**Recuerda que para que el liveReload funcione, necesitas tener su extensión instalada en tu navegadro [Link](http://livereload.com/extensions/) ;)**
+**Recuerda que para que el liveReload funcione, necesitas tener su extensión instalada en tu navegador [Link](http://livereload.com/extensions/) ;)**
 
 Bien, empezaremos por lo más básico, que es el **package.json**.
 
