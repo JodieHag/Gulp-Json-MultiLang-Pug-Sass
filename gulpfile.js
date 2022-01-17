@@ -9,7 +9,7 @@ const cssnano = require('cssnano')
 const livereload = require('gulp-livereload')
 const log = require('fancy-log')
 const merge = require('merge-stream')
-const sass = require('gulp-sass')
+const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss')
 const open = require('gulp-open')
 const prettier = require('gulp-prettier')
@@ -123,7 +123,6 @@ gulp.task('pug', async () => {
               inline: true,
               base: 'www/',
               css: [`css/${projectSettings.pages[page]}.min.css`],
-              minify: true,
               dimensions: [
                 {
                   height: 200,
